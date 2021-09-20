@@ -19,6 +19,13 @@ func (u Updater) InstallUpdater() error {
 	return nil
 }
 
-func (u Updater) UpdateFile(filename, key, value, repo string, ) error {
-	return exec.Command("./yq", "e", "-i", fmt.Sprintf(".%s=%s", key, value), fmt.Sprintf("%s/%s", repo, filename)).Run()
+func (u Updater) UpdateFile(filename, repo string, keys, values []string) error {
+	for i, key := range keys {
+		value := values[i]
+		err := exec.Command("./yq", "e", "-i", fmt.Sprintf(".%s=%s", key, value), fmt.Sprintf("%s/%s", repo, filename)).Run()
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

@@ -79,13 +79,13 @@ func (p Pusher) SetSshkey(sshkey string, homeDir string) error {
 	return nil
 }
 
-func (p Pusher) PushChanges(key, filname, repoName string) error {
+func (p Pusher) PushChanges(filname, repoName string) error {
 	if err := os.Chdir(repoName); err != nil {
 		return err
 	}
 	commands := [][]string{
 		{"git", "add", "."},
-		{"git", "commit", "-m", fmt.Sprintf("Release of key %s in %s", key, filname)},
+		{"git", "commit", "-m", fmt.Sprintf("Release of keys in %s", filname)},
 		{"git", "push"},
 	}
 	for _, command := range commands {
