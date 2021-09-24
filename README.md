@@ -16,6 +16,9 @@ Add this to GitHub acion:
 		key: "image"
 		value: '${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}'
 		github-deploy-key: ${{ secrets.GITOPS_SSH_PRIVATE_KEY }}
-		github-org-and-repo:  "myorg/app-env"
+		github-org:  'myorg'
+		github-repo:  'app-env'
+		username: 'john'
+		email: 'example@gmail.com'
 ```
 
