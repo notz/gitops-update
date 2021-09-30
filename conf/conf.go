@@ -2,16 +2,13 @@ package conf
 
 import (
 	"fmt"
-	"os"
-	"strings"
-
 	"github.com/pkg/errors"
+	"os"
 )
 
 type Configuration struct {
 	Filename        string
-	Key             []string
-	Value           []string
+	KeyValue        string
 	GithubDeployKey string
 	GithubOrg       string
 	GithubRepo      string
@@ -21,12 +18,11 @@ type Configuration struct {
 
 func InitConfigs() *Configuration {
 	configs := &Configuration{
-		Filename:        os.Getenv("FILE_NAME"),
-		Key:             getList("KEY"),
-		Value:           getList("VALUE"),
+		KeyValue:        os.Args[1],
+		Filename:        os.Args[2],
+		GithubRepo:      os.Args[3],
+		GithubOrg:       os.Args[4],
 		GithubDeployKey: os.Getenv("GITHUB_DEPLOY_KEY"),
-		GithubRepo:      os.Getenv("GITHUB_REPO_NAME"),
-		GithubOrg:       os.Getenv("GITHUB_ORG_NAME"),
 		Username:        os.Getenv("USERNAME"),
 		Email:           os.Getenv("EMAIL"),
 	}
@@ -39,19 +35,14 @@ func InitConfigs() *Configuration {
 }
 
 func (configs *Configuration) validate() error {
+	fmt.Println(configs)
 	// set default values or panic if required
 	message := "missing env variable:"
 	if configs.Filename == "" {
 		return errors.Wrap(errors.New(message), "FILE_NAME")
 	}
-	if len(configs.Key) == 0 {
-		return errors.Wrap(errors.New(message), "KEY")
-	}
-	if len(configs.Value) == 0 {
-		return errors.Wrap(errors.New(message), "VALUE")
-	}
-	if len(configs.Key) != len(configs.Value) {
-		return errors.New("length of key and values does not match")
+	if configs.KeyValue == "" {
+		return errors.Wrap(errors.New(message), "KeyValue")
 	}
 	if configs.GithubDeployKey == "" {
 		return errors.Wrap(errors.New(message), "GITHUB_DEPLOY_KEY")
@@ -70,8 +61,4 @@ func (configs *Configuration) validate() error {
 	}
 
 	return nil
-}
-
-func getList(variable string) []string {
-	return strings.Split(strings.Replace(os.Getenv(variable), " ", "", -1), ",")
 }

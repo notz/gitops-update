@@ -7,15 +7,17 @@ import (
 )
 
 type Runner struct {
-	updater updater.Updater
-	pusher  pusher.Pusher
-	config  *conf.Configuration
-	homeDir string
+	updater    updater.Updater
+	pusher     pusher.Pusher
+	config     *conf.Configuration
+	homeDir    string
+	keyValPair map[string]string
 }
 
-func NewRunner(homeDir string, conf *conf.Configuration) Runner {
+func NewRunner(homeDir string, conf *conf.Configuration, keyValPair map[string]string) Runner {
 	return Runner{homeDir: homeDir,
-		config: conf,
+		config:     conf,
+		keyValPair: keyValPair,
 	}
 }
 
@@ -41,7 +43,7 @@ func (r Runner) Run() error {
 	}
 
 	// replace key in yaml file
-	if err := r.updater.UpdateFile(r.config.Filename, r.config.GithubRepo, r.config.Key, r.config.Value); err != nil {
+	if err := r.updater.UpdateFile(r.config.Filename, r.config.GithubRepo, r.keyValPair); err != nil {
 		return err
 	}
 

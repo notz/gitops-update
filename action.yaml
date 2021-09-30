@@ -4,11 +4,8 @@ inputs:
   filename: 
     description: 'Filename to update'
     required: true
-  key:  
-    description: "The key to update. Key a string before the colon. Usually it's yaml key like `this-is-key: value`"
-    required: true
-  value:  
-    description: "The value to set"
+  key-value:
+    description: "The key to update. Usually it's yaml key like `this-is-key: value , new-key: value`"
     required: true
   github-deploy-key:  
     description: "Github deploy ssh private key to clone and commit target repository"
@@ -40,14 +37,9 @@ runs:
       uses: actions/checkout@v2
       with:
         repository: simplycubed/gitops-update
-    - run: go run main.go
+    - run: go run main.go ${{ inputs.key-value }} ${{ inputs.filename }} ${{ inputs.github-repo }} ${{ inputs.github-org }}
       shell: bash
       env:
-        FILE_NAME: ${{ inputs.filename }}
-        KEY: ${{ inputs.key }}
         GITHUB_DEPLOY_KEY: ${{ inputs.github-deploy-key }}
-        VALUE: ${{ inputs.value }}
-        GITHUB_REPO_NAME: ${{ inputs.github-repo }}
-        GITHUB_ORG_NAME: ${{ inputs.github-org }}
-        USERNAME: ${{ inputs.username }}
+        GITHUB_USERNAME: ${{ inputs.username }}
         EMAIL: ${{ inputs.email }}

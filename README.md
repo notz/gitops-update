@@ -13,8 +13,7 @@ Add this to GitHub acion:
 	uses: simplycubed/gitops-update@0.15
 	with:
 		filename: "path/to/deployment.yaml"
-		key: "image"
-		value: '${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}'
+		key-value: "image:${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }},tag:deployment"
 		github-deploy-key: ${{ secrets.GITOPS_SSH_PRIVATE_KEY }}
 		github-org:  'myorg'
 		github-repo:  'app-env'
