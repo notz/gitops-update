@@ -1,6 +1,6 @@
 # gitops-update
 
-GitHub Action that updates a single key in another GitHub repository.
+GitHub Action used to update image tags within a GitOps flow.
 
 ## Examples:
 
@@ -36,3 +36,6 @@ Add this to GitHub acion:
       email: 'example@gmail.com'
 ```
 
+## Dependencies
+
+- [mikefarah/yq](https://github.com/mikefarah/yq) is used internally to parse the YAML config for key/value (image/tag) updates. 
