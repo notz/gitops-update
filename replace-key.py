@@ -1,4 +1,4 @@
-import fileinput,sys,argparse,yaml
+import fileinput,sys,argparse
 
 parser=argparse.ArgumentParser()
 
@@ -11,32 +11,17 @@ tag=args.key
 newValue = args.value
 
 print ("{} {} ".format(tag, newValue))
-with open(args.file) as f:
-    doc = yaml.safe_load(f)
 
-    key_path_list = [int(e) if e.isdigit() else e for e in tag.split(".")]
-
-    depth = len(key_path_list)
-
-    match depth:
-        case 1:
-           doc[key_path_list[0]]=newValue
-        case 2:
-           doc[key_path_list[0]][key_path_list[1]]=newValue
-        case 3:
-           doc[key_path_list[0]][key_path_list[1]][key_path_list[2]]=newValue
-        case 4:
-           doc[key_path_list[0]][key_path_list[1]][key_path_list[2]][key_path_list[3]]=newValue 
-        case 5:
-           doc[key_path_list[0]][key_path_list[1]][key_path_list[2]][key_path_list[3]][key_path_list[4]]=newValue 
-        case 6:
-           doc[key_path_list[0]][key_path_list[1]][key_path_list[2]][key_path_list[3]][key_path_list[4]][key_path_list[5]]=newValue
-        case 7:
-           doc[key_path_list[0]][key_path_list[1]][key_path_list[2]][key_path_list[3]][key_path_list[4]][key_path_list[5]][key_path_list[6]]=newValue
-        case 8:
-           doc[key_path_list[0]][key_path_list[1]][key_path_list[2]][key_path_list[3]][key_path_list[4]][key_path_list[5]][key_path_list[6]][key_path_list[7]]=newValue
-        case 9:
-           doc[key_path_list[0]][key_path_list[1]][key_path_list[2]][key_path_list[3]][key_path_list[4]][key_path_list[5]][key_path_list[6]][key_path_list[7]][key_path_list[8]]=newValue 
-       
-with open(args.file, 'w') as f:
-    yaml.dump(doc, f)
+counter = 0
+for  line in fileinput.FileInput(args.file, inplace=1):
+    if line.lstrip().startswith("- "+tag) or line.lstrip().startswith(tag):
+        if line.index(':') <= 0:
+            sys.exit("Can't find a colon in a line: " + line)
+        print("{}: \"{}\" ".format(line[:line.index(':')],newValue))
+        counter += 1
+    else:
+        sys.stdout.write(line)
+if counter < 0:
+    print ("Key not found")
+    sys.exit(1)
+print ("Lines updated:  {}".format(counter))

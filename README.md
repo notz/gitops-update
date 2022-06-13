@@ -10,7 +10,7 @@ Add this to GitHub acion:
 
 ```text
 - name: GitOps Update
-	uses: simplycubed/gitops-update@0.15
+	uses: notz/gitops-update@master
 	with:
 		filename: "path/to/deployment.yaml"
 		key: "image"
