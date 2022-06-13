@@ -14,7 +14,7 @@ print ("{} {} ".format(tag, newValue))
 
 counter = 0
 for  line in fileinput.FileInput(args.file, inplace=1):
-    if line.lstrip().startswith("- "+tag) or line.lstrip().startswith(tag):
+    if line.lstrip().startswith("- " + tag + ":") or line.lstrip().startswith(tag + ":"):
         if line.index(':') <= 0:
             sys.exit("Can't find a colon in a line: " + line)
         print("{}: \"{}\" ".format(line[:line.index(':')],newValue))
