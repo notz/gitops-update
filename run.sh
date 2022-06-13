@@ -6,6 +6,7 @@ KEY=$2
 VALUE=$3
 GITHUB_DEPLOY_KEY=$4
 GITHUB_ORG_AND_REPO=$5
+COMMIT_MESSAGE=$6
 
 mkdir -p ~/.ssh
 
@@ -16,8 +17,8 @@ EOF
 
 ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
 
-git config --global user.email "gitops-update@github.com"
-git config --global user.name "Gitops Update User"
+git config --global user.email "gitops@github.com"
+git config --global user.name "gitops"
 
 # The key needs to be wrapped in double quotes
 echo "$GITHUB_DEPLOY_KEY" > ~/.ssh/id_rsa

@@ -17,5 +17,6 @@ Add this to GitHub acion:
 		value: '${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}'
 		github-deploy-key: ${{ secrets.GITOPS_SSH_PRIVATE_KEY }}
 		github-org-and-repo:  "myorg/app-env"
+		commit-message: 'deploy ${{ github.sha }}'
 ```
 

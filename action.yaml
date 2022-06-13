@@ -16,9 +16,12 @@ inputs:
   github-org-and-repo:  
     description: "Target organization and repository in form of `some-org/repo`"
     required: true
+  commit-message:
+    description: "The commit message"
+    required: true
 
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/run.sh "${{ inputs.filename }}" "${{ inputs.key }}" "${{ inputs.value }}" "${{ inputs.github-deploy-key }}" "${{ inputs.github-org-and-repo }}"
+    - run: ${{ github.action_path }}/run.sh "${{ inputs.filename }}" "${{ inputs.key }}" "${{ inputs.value }}" "${{ inputs.github-deploy-key }}" "${{ inputs.github-org-and-repo }}" "${{ inputs.commit-message }}"
       shell: bash
