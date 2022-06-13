@@ -30,5 +30,7 @@ wget https://raw.githubusercontent.com/notz/gitops-update/master/replace-key.py
 python replace-key.py --file $RUNNER_TEMP/infra-as-code-repo/$FILE_NAME --key $KEY --value $VALUE
 cd $RUNNER_TEMP/infra-as-code-repo
 git add .
-git commit -m "Release of key $KEY in $FILE_NAME"
-git push
+if ! git diff-index --quiet HEAD; then
+  git commit -m $COMMIT_MESSAGE
+  git push
+fi
