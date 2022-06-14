@@ -31,6 +31,6 @@ python replace-key.py --file $RUNNER_TEMP/infra-as-code-repo/$FILE_NAME --key $K
 cd $RUNNER_TEMP/infra-as-code-repo
 git add .
 if ! git diff-index --quiet HEAD; then
-  git commit -m $COMMIT_MESSAGE
+  git commit -m "$COMMIT_MESSAGE"
   git push
 fi
