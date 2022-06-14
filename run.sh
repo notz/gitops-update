@@ -17,8 +17,8 @@ EOF
 
 ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
 
-git config --global user.email "gitops@github.com"
-git config --global user.name "gitops"
+git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+git config --global user.name "github-actions[bot]"
 
 # The key needs to be wrapped in double quotes
 echo "$GITHUB_DEPLOY_KEY" > ~/.ssh/id_rsa
