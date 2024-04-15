@@ -27,7 +27,7 @@ chmod 600 ~/.ssh/id_rsa
 rm -rf $RUNNER_TEMP/infra-as-code-repo
 git clone git@github.com:$GITHUB_ORG_AND_REPO.git $RUNNER_TEMP/infra-as-code-repo
 wget https://raw.githubusercontent.com/notz/gitops-update/master/replace-key.py
-python replace-key.py --file $RUNNER_TEMP/infra-as-code-repo/$FILE_NAME --key $KEY --value $VALUE
+python3 replace-key.py --file $RUNNER_TEMP/infra-as-code-repo/$FILE_NAME --key $KEY --value $VALUE
 cd $RUNNER_TEMP/infra-as-code-repo
 git add .
 if ! git diff-index --quiet HEAD; then
