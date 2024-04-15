@@ -15,6 +15,8 @@ Hostname github.com
 IdentityFile ~/.ssh/id_rsa
 EOF
 
+apt install -y openssh-client
+
 ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
 
 git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
