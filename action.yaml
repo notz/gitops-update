@@ -19,9 +19,14 @@ inputs:
   commit-message:
     description: "The commit message"
     required: true
+outputs:
+  updates:
+    description: "True if there where some git updates pushed"
+    value: ${{ steps.run.outputs.updates }}
 
 runs:
   using: "composite"
   steps:
     - run: ${{ github.action_path }}/run.sh "${{ inputs.filename }}" "${{ inputs.key }}" "${{ inputs.value }}" "${{ inputs.github-deploy-key }}" "${{ inputs.github-org-and-repo }}" "${{ inputs.commit-message }}"
+      id: run
       shell: bash
