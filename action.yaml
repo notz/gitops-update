@@ -20,9 +20,9 @@ inputs:
     description: "The commit message"
     required: true
 outputs:
-  updates:
+  updated:
     description: "True if there where some git updates pushed"
-    value: ${{ steps.run.outputs.updates }}
+    value: ${{ steps.run.outputs.updated }}
 
 runs:
   using: "composite"
