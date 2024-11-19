@@ -33,7 +33,7 @@ git add .
 if ! git diff-index --quiet HEAD; then
   git commit -m "$COMMIT_MESSAGE"
   git push
-  echo "updated=true" >> "$GITHUB_OUTPUT"
+  echo "updated=true" >> $GITHUB_OUTPUT
 else
-  echo "updated=false" >> "$GITHUB_OUTPUT"
+  echo "updated=false" >> $GITHUB_OUTPUT
 fi
